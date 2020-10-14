@@ -1,7 +1,16 @@
 import React, { Component } from "react";
+import styled from 'styled-components';
 import Link from "../components/Link/Link";
 import List from "../components/List/List";
-import "./Profile.css";
+
+const ProfileWrapper = styled.div`
+width: 50%;
+margin: 10px auto;
+`;
+
+const Avatar = styled.img`
+width: 150px;
+`;
 
 class Profile extends Component {
   constructor() {
@@ -12,7 +21,7 @@ class Profile extends Component {
     };
   }
   async componentDidMount() {
-    const profile = await fetch("https://api.github.com/users/octocat");
+    const profile = await fetch("https://api.github.com/users/cylegacy");
     const profileJSON = await profile.json();
     if (profileJSON) {
       this.setState({
@@ -41,20 +50,10 @@ class Profile extends Component {
     ];
 
     return (
-      <div className="Profile-container">
-        <img className="Profile-avatar" src={data.avatar_url} alt="avatar" />
-        <ul>
-          <li>avatar_url: {data.avatar_url}</li>
-          <li>html_url: {data.html_url}</li>
-          <li>repos_url: {data.repos_url}</li>
-          <li>name: {data.name}</li>
-          <li>company: {data.company}</li>
-          <li>location: {data.location}</li>
-          <li>email: {data.email}</li>
-          <li>bio: {data.bio}</li>
-        </ul>
-        <List items={items} />в
-      </div>
+      <ProfileWrapper>
+        <Avatar src={data.avatar_url} alt="avatar" />
+        <List items={items} />
+      </ProfileWrapper>
     );
   }
 }
